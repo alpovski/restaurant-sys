@@ -8,11 +8,16 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import User
 from schemas import TokenData
+import os
+from dotenv import load_dotenv
+
+# .env dosyasını yükle
+load_dotenv()
 
 # JWT ayarları
-SECRET_KEY = "your-secret-key-here"  # Güvenli bir secret key kullanın
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 
 # Şifreleme ayarları
 pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
